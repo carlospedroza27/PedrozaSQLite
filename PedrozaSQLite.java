@@ -317,7 +317,7 @@ public class PedrozaSQLite extends AndroidNonvisibleComponent implements Compone
 	}
 	
 	/**
-	* Event handler after the ExecuteRawQuery or Query is executed and returns a list with the selected data and number of records.
+	* Event handler after the RawQuery or Query is executed and returns a list with the selected data and number of records.
 	*/
 	@SimpleEvent
 	public void AfterQuery(List result, int numberOfRecords) {
@@ -473,7 +473,7 @@ public class PedrozaSQLite extends AndroidNonvisibleComponent implements Compone
 	+ " 7) String orderBy: How to order the rows, formatted as an SQL ORDER BY clause (excluding the ORDER BY itself), passing an empty string will use the default sort order (unordered)."
 	+ " 8) String limit: Limits the number of rows returned by the query, formatted as LIMIT clause, passing an empty string denotes no LIMIT clause."
 	+ " The result query is available in the AfterQuery event handler")
-	public void Query(String table, YailList columns, String selection, YailList selectionArgs, String groupBy, String having, String orderBy) {
+	public void Query(String table, YailList columns, String selection, YailList selectionArgs, String groupBy, String having, String orderBy, String limit) {
 		DbHelper helper = new DbHelper(context);
 		SQLiteDatabase db = helper.getReadableDatabase();
 		String[] queryColumns = columns.toStringArray();
@@ -483,13 +483,14 @@ public class PedrozaSQLite extends AndroidNonvisibleComponent implements Compone
 		groupBy = (groupBy == "" ? null : groupBy);
 		having = (having == "" ? null : having);
 		orderBy = (orderBy == "" ? null : orderBy);
+		limit = (limit == "" ? null : limit);
 		
 		List queryResult = new ArrayList<String>();
 		int records = 0;
 		boolean wasSuccesful;
 		db.beginTransaction();
 		try {
-			Cursor cursor = db.query(table, queryColumns, selection, querySelectionArgs, groupBy, having, orderBy);
+			Cursor cursor = db.query(table, queryColumns, selection, querySelectionArgs, groupBy, having, orderBy, limit);
 			queryResult = CursorManagement(cursor); //Translate Cursor into an ArrayList
 			records = queryResult.size();
 			wasSuccesful = true;
