@@ -40,7 +40,7 @@ import java.util.List;
 	description = "Tool developed by Carlos Pedroza to access the application's SQlite database.",
 	category = ComponentCategory.EXTENSION,
 	nonVisible = true,
-	iconName = "aiwebres/Untitled.png")
+	iconName = "https://www.javatpoint.com/sqlite/images/sqlite-tutorial.png")
 
 @SimpleObject(external = true)
 public class PedrozaSQLite extends AndroidNonvisibleComponent implements Component {
