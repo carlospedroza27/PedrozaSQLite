@@ -102,7 +102,7 @@ public class PedrozaSQLite extends AndroidNonvisibleComponent implements Compone
 				db.setTransactionSuccessful();
 			} catch (SQLException e) {
 				//If there is an invalid SQL statement, this flag
-				//helps with calling the ErrorOcurred event handler
+				//helps with calling the ErrorOccurred event handler
 				wasSuccesful = false;
 			} finally {
 				db.endTransaction();
@@ -118,7 +118,7 @@ public class PedrozaSQLite extends AndroidNonvisibleComponent implements Compone
 				AfterExecution(wasSuccesful);	//In the AfterExecution event handler returns true
 			} else {
 				AfterExecution(wasSuccesful);	//In the AfterExecution event handler returns false
-				ErrorOcurred("Invalid SQL Statement");	//Calls the ErrorOcurred event handler
+				ErrorOccurred("Invalid SQL Statement");	//Calls the ErrorOccurred event handler
 			}
 					
 		}
@@ -156,7 +156,7 @@ public class PedrozaSQLite extends AndroidNonvisibleComponent implements Compone
 			if (wasSuccesful) {
 				AfterQuery (queryResult, records);	//In the event handler, it returns a YailList and the number of records
 			} else {
-				ErrorOcurred("Invalid SQL Statement");
+				ErrorOccurred("Invalid SQL Statement");
 			}
 		}
 	}
@@ -207,7 +207,7 @@ public class PedrozaSQLite extends AndroidNonvisibleComponent implements Compone
 		}
 		return queryResult;
 		} catch (SQLException e) {
-		ErrorOcurred("Error during managing the cursor");
+		ErrorOccurred("Error during managing the cursor");
 		return queryResult;
 	}
 	}
@@ -346,7 +346,7 @@ public class PedrozaSQLite extends AndroidNonvisibleComponent implements Compone
 		try {
 			result = db.delete(table, whereClause, deleteWhereArgs);
 		} catch (SQLException e) {
-			ErrorOcurred("Something went wrong deleting");
+			ErrorOccurred("Something went wrong deleting");
 		}
 		db.close();
 		return result;
@@ -377,7 +377,7 @@ public class PedrozaSQLite extends AndroidNonvisibleComponent implements Compone
 		try {
 			result = db.insert(table, null, Values);
 		} catch (SQLException e) {
-			ErrorOcurred("Something went wrong inserting");
+			ErrorOccurred("Something went wrong inserting");
 		}
 		db.close();
 		return result;
@@ -408,7 +408,7 @@ public class PedrozaSQLite extends AndroidNonvisibleComponent implements Compone
 		try {
 			result = db.replace(table, null, Values);
 		} catch (SQLException e) {
-			ErrorOcurred("Something went wrong replacing");
+			ErrorOccurred("Something went wrong replacing");
 		}
 		db.close();
 		return result;
@@ -446,7 +446,7 @@ public class PedrozaSQLite extends AndroidNonvisibleComponent implements Compone
 		try {
 			result = db.update(table, Values, whereClause, updateWhereArgs);
 		} catch (SQLException e) {
-			ErrorOcurred("Something went wrong updating");
+			ErrorOccurred("Something went wrong updating");
 		}
 		db.close();
 		return result;
@@ -506,15 +506,15 @@ public class PedrozaSQLite extends AndroidNonvisibleComponent implements Compone
 		if (wasSuccesful) {
 			AfterQuery (queryResult, records);	
 		} else {
-			ErrorOcurred("Something went wrong querying");	
+			ErrorOccurred("Something went wrong querying");	
 		}
 	}
 	
 	/**
-	* Event handler when an error ocurred, returns a string with a message from the error.
+	* Event handler when an error occurred, returns a string with a message from the error.
 	*/
 	@SimpleEvent
-	public void ErrorOcurred(String message) {
-		EventDispatcher.dispatchEvent(this, "ErrorOcurred", message);
+	public void ErrorOccurred(String message) {
+		EventDispatcher.dispatchEvent(this, "ErrorOccurred", message);
 	}
 }
